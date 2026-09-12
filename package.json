@@ -11,5 +11,9 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongoose": "^8.24.4"
+  },
+  "scripts": {
+    "dev": "tsc && node dist/index",
+    "start": "tsc && node dist/index"
   }
 }
