@@ -17,7 +17,10 @@ const resultService = {
     retrieve: async (userId: string) => {
         try {
             const entry = await resultRepo.retrieve(userId);
-            return {success: true, message: "Score retrieved", entry}
+            if (entry) {
+                return {success: true, message: "Score retrieved", entry}
+            } else return {success: false, message: "Score not found"}
+            
         } catch (err) {
             if (err instanceof Error) {
                 return {success: false, message: err.message}
