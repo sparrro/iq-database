@@ -15,9 +15,10 @@ const resultService = {
     },
 
     retrieve: async (userId: string) => {
-
-
-        try {} catch (err) {
+        try {
+            const entry = await resultRepo.retrieve(userId);
+            return {success: true, message: "Score retrieved", entry}
+        } catch (err) {
             if (err instanceof Error) {
                 return {success: false, message: err.message}
             } else return {success: false, message: "Unknown error"}
