@@ -13,6 +13,10 @@ app.use(express.json());
 
 app.use("/results", resultRoutes);
 
+app.get("/", (req, res) => {
+    res.send("Api is working")
+})
+
 const connectToDb = () => {
     if (!DB_URI) return;
     mongoose.connect(DB_URI);
