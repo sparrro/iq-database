@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import { DB_URI } from "./config/environment";
+import { DB_URI, PORT } from "./config/environment";
 import resultRoutes from "./routes/resultRoutes";
 
 const app = express();
@@ -17,7 +17,7 @@ const connectToDb = () => {
 
     mongoose.connection.once("open", () => {
         console.log("Connected to database");
-        app.listen(3000, "0.0.0.0", () => {
+        app.listen(Number(PORT), "0.0.0.0", () => {
             console.log("Server running");
         });
     });
