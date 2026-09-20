@@ -13,6 +13,10 @@ const resultSchema = new mongoose.Schema({
             validator: (s: string) => /^\d{1,3}$/.test(s) && Number(s) <= 200,
             message: "Score must be a number between 0 and 200"
         }
+    },
+    hdi: {
+        type: Number,
+        required: true
     }
 });
 

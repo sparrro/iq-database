@@ -7,6 +7,10 @@ const resultRepo = {
         return await Result.create(data);
     },
 
+    addHdi: async (data: {userId: string, hdi: number}) => {
+        return await Result.create({...data, score: 100});
+    },
+
     retrieve: async (userId: string) => {
         return await Result.findOne({userId: userId})
     }

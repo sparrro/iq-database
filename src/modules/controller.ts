@@ -24,6 +24,23 @@ const resultController = {
 
     },
 
+    addHdi: async (req: Request, res: Response) => {
+
+        const { userId, hdi } = req.body;
+
+        if (!userId || !hdi) return res.status(400).json({ success: false, message: "Missing userId or hdi" });
+
+        try {
+            const result = await resultService.addHdi(userId, hdi);
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(400).json(result);
+        } catch (err) {
+            return res.status(500).json({ success: false, message: "Server error" });
+        };
+
+    },
+
     retrieve: async (req: Request, res: Response) => {
 
         const { userId } = req.params;

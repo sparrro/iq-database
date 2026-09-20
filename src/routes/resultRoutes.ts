@@ -8,6 +8,11 @@ resultRoutes.post(
     resultController.add
 );
 
+resultRoutes.post(
+    "/hdi",
+    resultController.addHdi
+)
+
 resultRoutes.get(
     "/:userId",
     resultController.retrieve
