@@ -4,8 +4,59 @@ import {
 } from "express";
 import mongoose from "mongoose";
 import resultService from "./services";
+import { resultType } from "../types";
 
 const resultController = {
+
+    addFull: async (req: Request, res: Response) => {
+
+        const {
+            userId,
+            score,
+            verbalScore,
+            numericalScore,
+            abstractScore,
+            generalKnowledge,
+            hdi,
+            country,
+            region
+        } = req.body;
+
+        if (
+            !userId ||
+            !score ||
+            !verbalScore ||
+            !numericalScore ||
+            !abstractScore ||
+            !generalKnowledge ||
+            !hdi ||
+            !country ||
+            !region
+        ) return res.status(400).json({success: false, message: "Missing input data"});
+
+        const data: resultType = {
+            userId,
+            score,
+            verbalScore,
+            numericalScore,
+            abstractScore,
+            generalKnowledge,
+            hdi,
+            country,
+            region
+        }
+
+        try {
+            const result = await resultService.addFull(data);
+            if (result.success) {
+                return res.status(201).json(result);
+            } else return res.status(400).json(result);
+        } catch (err) {
+            return res.status(500).json({success: false, message: "Server error"});
+        };
+
+
+    },
 
     add: async (req: Request, res: Response) => {
 

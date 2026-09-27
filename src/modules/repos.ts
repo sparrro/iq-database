@@ -1,9 +1,14 @@
 import mongoose from "mongoose";
 import Result from "./models";
+import { resultType } from "../types";
 
 const resultRepo = {
 
     add: async (data: {userId: string, score: string}) => {
+        return await Result.create(data);
+    },
+
+    addFull: async (data: resultType) => {
         return await Result.create(data);
     },
 

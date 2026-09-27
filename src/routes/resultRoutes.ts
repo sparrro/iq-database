@@ -5,7 +5,7 @@ const resultRoutes = express.Router();
 
 resultRoutes.post(
     "/add",
-    resultController.add
+    resultController.addFull
 );
 
 resultRoutes.post(

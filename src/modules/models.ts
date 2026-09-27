@@ -8,14 +8,37 @@ const resultSchema = new mongoose.Schema({
     },
     score: {
         type: String,
-        required: true,
         validate: {
             validator: (s: string) => /^\d{1,3}$/.test(s) && Number(s) <= 200,
             message: "Score must be a number between 0 and 200"
         }
     },
+    verbalScore: {
+        type: Number,
+        required: true
+    },
+    numericalScore: {
+        type: Number,
+        required: true
+    },
+    abstractScore: {
+        type: Number,
+        required: true
+    },
+    generalKnowledge: {
+        type: Number,
+        required: true
+    },
     hdi: {
         type: Number,
+        required: true
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    region: {
+        type: String,
         required: true
     }
 });
