@@ -15,31 +15,24 @@ const resultSchema = new mongoose.Schema({
     },
     verbalScore: {
         type: Number,
-        required: true
     },
     numericalScore: {
         type: Number,
-        required: true
     },
     abstractScore: {
         type: Number,
-        required: true
     },
     generalKnowledge: {
         type: Number,
-        required: true
     },
     hdi: {
         type: Number,
-        required: true
     },
     country: {
         type: String,
-        required: true
     },
     region: {
         type: String,
-        required: true
     }
 });
 

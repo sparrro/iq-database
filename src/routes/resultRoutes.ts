@@ -11,7 +11,7 @@ resultRoutes.post(
 resultRoutes.post(
     "/hdi",
     resultController.addHdi
-)
+);
 
 resultRoutes.get(
     "/:userId",
