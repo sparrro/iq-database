@@ -13,6 +13,26 @@ resultRoutes.post(
     resultController.addHdi
 );
 
+resultRoutes.post(
+    "/verbal",
+    resultController.addVerbal
+);
+
+resultRoutes.post(
+    "/numerical",
+    resultController.addVerbal
+);
+
+resultRoutes.post(
+    "/abstract",
+    resultController.addAbstract
+);
+
+resultRoutes.post(
+    "/general",
+    resultController.addGeneral
+);
+
 resultRoutes.get(
     "/:userId",
     resultController.retrieve

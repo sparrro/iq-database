@@ -92,6 +92,14 @@ const resultController = {
 
     },
 
+    addVerbal: async (req: Request, res: Response) => {},
+
+    addNumerical: async (req: Request, res: Response) => {},
+
+    addAbstract: async (req: Request, res: Response) => {},
+
+    addGeneral: async (req: Request, res: Response) => {},
+
     retrieve: async (req: Request, res: Response) => {
 
         const { userId } = req.params;
