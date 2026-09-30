@@ -16,17 +16,32 @@ const resultSchema = new mongoose.Schema({
     verbalScore: {
         type: Number,
     },
+    verbalUpdatedAt: {
+        type: Number,
+    },
     numericalScore: {
         type: Number,
+    },
+    numericalUpdatedAt: {
+        type: Number
     },
     abstractScore: {
         type: Number,
     },
+    abstractedUpdatedAt: {
+        type: Number
+    },
     generalKnowledge: {
         type: Number,
     },
+    generalUpdatedAt: {
+        type: Number
+    },
     hdi: {
         type: Number,
+    },
+    hdiUpdatedAt: {
+        type: Number
     },
     country: {
         type: String,

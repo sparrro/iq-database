@@ -5,6 +5,7 @@ import {
 import mongoose from "mongoose";
 import resultService from "./services";
 import { resultType } from "../types";
+import resultRepo from "./repos";
 
 const resultController = {
 
@@ -58,7 +59,7 @@ const resultController = {
 
     },
 
-    add: async (req: Request, res: Response) => {
+    add: async (req: Request, res: Response) => { //deprecated
 
         const { userId, score } = req.body;
 
@@ -77,28 +78,152 @@ const resultController = {
 
     addHdi: async (req: Request, res: Response) => {
 
-        const { userId, hdi } = req.body;
+        const { userId, country, region, hdi } = req.body;
 
         if (!userId || !hdi) return res.status(400).json({ success: false, message: "Missing userId or hdi" });
 
         try {
-            const result = await resultService.addHdi(userId, hdi);
+
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (entry.hdi && Date.now() - entry.hdiUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
+                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                } else {
+                    entry.hdi = hdi;
+                    entry.hdiUpdatedAt = Date.now();
+                    entry.save();  
+                    return res.status(200).json({ success: true, message: "Hdi updated", data: entry })              
+                };
+            };
+
+            const result = await resultService.addHdi(userId, country, region, hdi);
             if (result.success) {
                 return res.status(200).json(result);
             } else return res.status(400).json(result);
+
         } catch (err) {
             return res.status(500).json({ success: false, message: "Server error" });
         };
 
     },
 
-    addVerbal: async (req: Request, res: Response) => {},
+    addVerbal: async (req: Request, res: Response) => {
+        
+        const {userId, verbalScore} = req.body;
 
-    addNumerical: async (req: Request, res: Response) => {},
+        if (!userId || !verbalScore) return res.status(400).json({ success: false, message: "Missing userId or verbalScore" });
 
-    addAbstract: async (req: Request, res: Response) => {},
+        try {
 
-    addGeneral: async (req: Request, res: Response) => {},
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (entry.verbalScore && Date.now() - entry.verbalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
+                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                } else {
+                    entry.verbalScore = verbalScore;
+                    entry.verbalUpdatedAt = Date.now();
+                    entry.save();   
+                    return res.status(200).json({ success: true, message: "Verbal score updated", data: entry });             
+                };
+            };
+
+            const result = await resultService.addVerbal(userId, verbalScore);
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(400).json(result);
+
+        } catch (err) {
+            return res.status(500).json({ success: false, message: "Server error" });
+        };
+
+    },
+
+    addNumerical: async (req: Request, res: Response) => {
+
+        const {userId, numericalScore} = req.body;
+
+        if (!userId || !numericalScore) return res.status(400).json({ success: false, message: "Missing userId or numericalScore" });
+
+        try {
+
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (entry.numericalScore && Date.now() - entry.numericalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
+                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                } else {
+                    entry.numericalScore = numericalScore;
+                    entry.numericalUpdatedAt = Date.now();
+                    entry.save();   
+                    return res.status(200).json({ success: true, message: "Numerical score updated", data: entry });             
+                };
+            };
+
+            const result = await resultService.addNumerical(userId, numericalScore);
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(400).json(result);} catch (err) {
+            return res.status(500).json({ success: false, message: "Server error" });
+        };
+
+    },
+
+    addAbstract: async (req: Request, res: Response) => {
+
+        const {userId, abstractScore} = req.body;
+
+        if (!userId || !abstractScore) return res.status(400).json({ success: false, message: "Missing userId or abstractScore" });
+
+        try {
+
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (entry.abstractScore && Date.now() - entry.abstractedUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
+                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                } else {
+                    entry.abstractScore = abstractScore;
+                    entry.abstractedUpdatedAt = Date.now();
+                    entry.save();
+                    return res.status(200).json({ success: true, message: "Abstract score updated", data: entry });
+                };
+            };
+
+            const result = await resultService.addAbstract(userId, abstractScore);
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(400).json(result);} catch (err) {
+            return res.status(500).json({ success: false, message: "Server error" });
+        };
+
+    },
+
+    addGeneral: async (req: Request, res: Response) => {
+
+        const {userId, generalKnowledge} = req.body;
+
+        if (!userId || !generalKnowledge) return res.status(400).json({ success: false, message: "Missing userId or generalKnowledge" });
+
+        try {
+
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (entry.generalKnowledge && Date.now() - entry.generalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
+                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                } else {
+                    entry.generalKnowledge = generalKnowledge;
+                    entry.generalUpdatedAt = Date.now();
+                    entry.save();
+                    return res.status(200).json({ success: true, message: "General knowledge updated", data: entry });                
+                };
+            };
+
+            const result = await resultService.addGeneral(userId, generalKnowledge);
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(400).json(result);} catch (err) {
+            return res.status(500).json({ success: false, message: "Server error" });
+        };
+
+    },
 
     retrieve: async (req: Request, res: Response) => {
 

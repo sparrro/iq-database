@@ -12,8 +12,24 @@ const resultRepo = {
         return await Result.create(data);
     },
 
-    addHdi: async (data: {userId: string, hdi: number}) => {
-        return await Result.create({...data, score: 100});
+    addHdi: async (data: {userId: string, country: string, region: string, hdi: number, hdiUpdatedAt: number}) => {
+        return await Result.create(data);
+    },
+
+    addVerbal: async (data: {userId: string, verbalScore: number, verbalUpdatedAt: number}) => {
+        return await Result.create(data);
+    },
+
+    addNumerical: async (data: {userId: string, numericalScore: number, numericalUpdatedAt: number}) => {
+        return await Result.create(data);
+    },
+
+    addAbstract: async (data: {userId: string, abstractScore: number, abstractUpdatedAt: number}) => {
+        return await Result.create(data);
+    },
+
+    addGeneral: async (data: {userId: string, generalKnowledge: number, generalUpdatedAt: number}) => {
+        return await Result.create(data);
     },
 
     retrieve: async (userId: string) => {
