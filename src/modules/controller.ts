@@ -48,6 +48,19 @@ const resultController = {
         }
 
         try {
+            const entry = await resultRepo.retrieve(userId);
+            if (entry) {
+                if (!entry.hdi || !entry.verbalScore || !entry.numericalScore || !entry.abstractScore || !entry.generalKnowledge) {
+                    return res.status(403).json({ success: false, message: "As you have already done some subtests separately you must do each of them separately" });
+                };
+                if (
+                    (entry.verbalUpdatedAt && Date.now() - entry.verbalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
+                    (entry.numericalUpdatedAt && Date.now() - entry.numericalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
+                    (entry.abstractedUpdatedAt && Date.now() - entry.abstractedUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
+                    (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
+                    (entry.hdiUpdatedAt && Date.now() - entry.hdiUpdatedAt < 1000 * 60 * 60 * 24 * 7)
+                ) return res.status(403).json({ success: false, message: "Must wait at least a week before retaking the test" });
+            };
             const result = await resultService.addFull(data);
             if (result.success) {
                 return res.status(201).json(result);
@@ -92,7 +105,7 @@ const resultController = {
                     entry.hdi = hdi;
                     entry.hdiUpdatedAt = Date.now();
                     entry.save();  
-                    return res.status(200).json({ success: true, message: "Hdi updated", data: entry })              
+                    return res.status(200).json({ success: true, message: "Hdi updated", data: entry });      
                 };
             };
 
