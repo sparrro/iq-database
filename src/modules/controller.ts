@@ -51,12 +51,12 @@ const resultController = {
                     return res.status(403).json({ success: false, message: "As you have already done some subtests separately you must do each of them separately" });
                 };
                 if (
-                    (entry.verbalUpdatedAt && Date.now() - entry.verbalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
-                    (entry.numericalUpdatedAt && Date.now() - entry.numericalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
-                    (entry.abstractedUpdatedAt && Date.now() - entry.abstractedUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
-                    (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 7) ||
-                    (entry.hdiUpdatedAt && Date.now() - entry.hdiUpdatedAt < 1000 * 60 * 60 * 24 * 7)
-                ) return res.status(403).json({ success: false, message: "Must wait at least a week before retaking the test" });
+                    (entry.verbalUpdatedAt && Date.now() - entry.verbalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
+                    (entry.numericalUpdatedAt && Date.now() - entry.numericalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
+                    (entry.abstractedUpdatedAt && Date.now() - entry.abstractedUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
+                    (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
+                    (entry.hdiUpdatedAt && Date.now() - entry.hdiUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6)
+                ) return res.status(403).json({ success: false, message: "Must wait at least six months before retaking the test" });
             };
             const result = await resultService.addFull(data);
             if (result.success) {
@@ -96,8 +96,8 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(userId);
             if (entry) {
-                if (entry.hdi && Date.now() - entry.hdiUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
-                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                if (entry.hdi && Date.now() - entry.hdiUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
+                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
                 } else {
                     entry.hdi = hdi;
                     entry.hdiUpdatedAt = Date.now();
@@ -127,8 +127,8 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(userId);
             if (entry) {
-                if (entry.verbalScore && Date.now() - entry.verbalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
-                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                if (entry.verbalScore && Date.now() - entry.verbalUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
+                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
                 } else {
                     entry.verbalScore = verbalScore;
                     entry.verbalUpdatedAt = Date.now();
@@ -158,8 +158,8 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(userId);
             if (entry) {
-                if (entry.numericalScore && Date.now() - entry.numericalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
-                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                if (entry.numericalScore && Date.now() - entry.numericalUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
+                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
                 } else {
                     entry.numericalScore = numericalScore;
                     entry.numericalUpdatedAt = Date.now();
@@ -187,8 +187,8 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(userId);
             if (entry) {
-                if (entry.abstractScore && Date.now() - entry.abstractedUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
-                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                if (entry.abstractScore && Date.now() - entry.abstractedUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
+                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
                 } else {
                     entry.abstractScore = abstractScore;
                     entry.abstractedUpdatedAt = Date.now();
@@ -216,8 +216,8 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(userId);
             if (entry) {
-                if (entry.generalKnowledge && Date.now() - entry.generalUpdatedAt! < 1000 * 60 * 60 * 24 * 7) {
-                    return res.status(403).json({ success: false, message: "You must wait at least a week to redo a test" });
+                if (entry.generalKnowledge && Date.now() - entry.generalUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
+                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
                 } else {
                     entry.generalKnowledge = generalKnowledge;
                     entry.generalUpdatedAt = Date.now();
