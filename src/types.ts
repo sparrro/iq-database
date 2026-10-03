@@ -1,6 +1,6 @@
 export type resultType = {
     userId: string,
-    score: number,
+    score?: number,
     verbalScore?: number,
     verbalUpdatedAt?: number,
     numericalScore?: number,

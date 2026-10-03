@@ -13,7 +13,6 @@ const resultController = {
 
         const {
             userId,
-            score,
             verbalScore,
             numericalScore,
             abstractScore,
@@ -25,7 +24,6 @@ const resultController = {
 
         if (
             !userId ||
-            !score ||
             !verbalScore ||
             !numericalScore ||
             !abstractScore ||
@@ -37,7 +35,6 @@ const resultController = {
 
         const data: resultType = {
             userId,
-            score,
             verbalScore,
             numericalScore,
             abstractScore,
