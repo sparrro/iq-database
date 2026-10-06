@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import resultRepo from "./repos";
-import { resultType } from "../types";
+import resultRepo from "./repo";
+import { resultType } from "../../types";
 
 const resultService = {
 
@@ -20,6 +20,25 @@ const resultService = {
             if (err instanceof Error) {
                 return {success: false, message: err.message};
             } else return {success: false, message: "Unknown error"};
+        };
+    },
+
+    updateFull: async (data: resultType) => {
+        try {
+            const currentTime = Date.now();
+            const entry = await resultRepo.updateFull({
+                ...data,
+                verbalUpdatedAt: currentTime,
+                numericalUpdatedAt: currentTime,
+                abstractUpdatedAt: currentTime,
+                generalUpdatedAt: currentTime,
+                hdiUpdatedAt: currentTime
+            });
+            return { success: true, message: "Score updated", data: entry };
+        } catch (err) {
+            if (err instanceof Error) {
+                return { success: false, message: err.message };
+            } else return { success: false, message: "Unknown error" };
         };
     },
 

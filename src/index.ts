@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { DB_URI } from "./config/environment";
 import resultRoutes from "./routes/resultRoutes";
+import dataMineRoutes from "./routes/dataMineRoutes";
 
 const port = Number(process.env.PORT) || 3000;
 
@@ -12,6 +13,7 @@ app.use(cors({origin: "*", optionsSuccessStatus: 200}));
 app.use(express.json());
 
 app.use("/results", resultRoutes);
+app.use("/data", dataMineRoutes);
 
 app.get("/", (req, res) => {
     res.send("Api is working")

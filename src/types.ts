@@ -14,3 +14,18 @@ export type resultType = {
     country?: string,
     region?: string
 };
+
+export type questionAndAnswerType = {
+    question: string,
+    answer: string,
+    correct: boolean,
+    difficulty: number
+};
+
+export type dataMineType = {
+    userId: string,
+    verbalAnswers?: questionAndAnswerType[],
+    numericalAnswers?: questionAndAnswerType[],
+    abstractAnswers?: questionAndAnswerType[],
+    generalAnswers?: questionAndAnswerType[]
+};

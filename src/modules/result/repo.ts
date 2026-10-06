@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Result from "./models";
-import { resultType } from "../types";
+import Result from "./model";
+import { resultType } from "../../types";
 
 const resultRepo = {
 
@@ -10,6 +10,10 @@ const resultRepo = {
 
     addFull: async (data: resultType) => {
         return await Result.create(data);
+    },
+
+    updateFull: async (data: resultType) => {
+        return await Result.findOneAndUpdate({ userId: data.userId }, data, { new: true });
     },
 
     addHdi: async (data: {userId: string, country: string, region: string, hdi: number, hdiUpdatedAt: number}) => {

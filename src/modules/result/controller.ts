@@ -3,9 +3,9 @@ import {
     Response
 } from "express";
 import mongoose from "mongoose";
-import resultService from "./services";
-import { resultType } from "../types";
-import resultRepo from "./repos";
+import resultService from "./service";
+import { resultType } from "../../types";
+import resultRepo from "./repo";
 
 const resultController = {
 
@@ -57,6 +57,7 @@ const resultController = {
                     (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
                     (entry.hdiUpdatedAt && Date.now() - entry.hdiUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6)
                 ) return res.status(403).json({ success: false, message: "Must wait at least six months before retaking the test" });
+                const result = await resultService.updateFull(data);
             };
             const result = await resultService.addFull(data);
             if (result.success) {
@@ -132,8 +133,8 @@ const resultController = {
                 } else {
                     entry.verbalScore = verbalScore;
                     entry.verbalUpdatedAt = Date.now();
-                    entry.save();   
-                    return res.status(200).json({ success: true, message: "Verbal score updated", data: entry });             
+                    const updated = entry.save();   
+                    return res.status(200).json({ success: true, message: "Verbal score updated", data: updated });             
                 };
             };
 
@@ -163,15 +164,16 @@ const resultController = {
                 } else {
                     entry.numericalScore = numericalScore;
                     entry.numericalUpdatedAt = Date.now();
-                    entry.save();   
-                    return res.status(200).json({ success: true, message: "Numerical score updated", data: entry });             
+                    const updated = entry.save();   
+                    return res.status(200).json({ success: true, message: "Numerical score updated", data: updated });             
                 };
             };
 
             const result = await resultService.addNumerical(userId, numericalScore);
             if (result.success) {
                 return res.status(200).json(result);
-            } else return res.status(400).json(result);} catch (err) {
+            } else return res.status(400).json(result);
+        } catch (err) {
             return res.status(500).json({ success: false, message: "Server error" });
         };
 
@@ -200,7 +202,8 @@ const resultController = {
             const result = await resultService.addAbstract(userId, abstractScore);
             if (result.success) {
                 return res.status(200).json(result);
-            } else return res.status(400).json(result);} catch (err) {
+            } else return res.status(400).json(result);
+        } catch (err) {
             return res.status(500).json({ success: false, message: "Server error" });
         };
 
@@ -229,7 +232,8 @@ const resultController = {
             const result = await resultService.addGeneral(userId, generalKnowledge);
             if (result.success) {
                 return res.status(200).json(result);
-            } else return res.status(400).json(result);} catch (err) {
+            } else return res.status(400).json(result);
+        } catch (err) {
             return res.status(500).json({ success: false, message: "Server error" });
         };
 
