@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "tsc && node dist/index",
-    "build": "tsc",
+    "build": "npm install && tsc",
     "start": "node dist/index"
   }
 }
