@@ -100,7 +100,7 @@ const resultService = {
     addGeneral: async (userId: string, generalKnowledge: number) => {
         try {
             const entry = await resultRepo.addGeneral({ userId, generalKnowledge, generalUpdatedAt: Date.now() });
-            return { success: true, message: "General knowledge updated", data: entry };
+            return { success: true, message: "General knowledge added", data: entry };
         } catch (err) {
             if (err instanceof Error) {
                 return { success: false, message: err.message };

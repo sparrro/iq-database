@@ -40,16 +40,18 @@ const dataMineController  = {
             } else return res.status(400).json(result);
 
         } catch (err) {
-            return res.status(500).json({ success: false, message: "Server error" });
+            if (err instanceof Error) {
+                return res.status(500).json({ success: false, message: err.message });
+            } else return res.status(500).json({ success: false, message: "Server error" });
         }
 
     },
 
     retrieve: async (req: Request, res: Response) => {
 
-        const { userId } = req.body;
+        const { userId } = req.params;
 
-        if (!userId) return res.status(400).json({ success: false, message: "Missing userId" });
+        if (!userId || typeof userId != "string") return res.status(400).json({ success: false, message: "Missing userId" });
 
         try {
             const result = await dataMineService.retrieve(userId);
@@ -57,7 +59,9 @@ const dataMineController  = {
                 return res.status(200).json(result);
             } else return res.status(400).json(result);
         } catch (err) {
-            return res.status(500).json({ success: false, message: "Server error" });
+            if (err instanceof Error) {
+                return res.status(500).json({ success: false, message: err.message });
+            } else return res.status(500).json({ success: false, message: "Server error" });
         }
     }
 

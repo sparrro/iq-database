@@ -28,7 +28,7 @@ const resultSchema = new mongoose.Schema({
     abstractScore: {
         type: Number,
     },
-    abstractedUpdatedAt: {
+    abstractUpdatedAt: {
         type: Number
     },
     generalKnowledge: {

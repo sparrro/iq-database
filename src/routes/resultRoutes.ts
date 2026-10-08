@@ -20,7 +20,7 @@ resultRoutes.post(
 
 resultRoutes.post(
     "/numerical",
-    resultController.addVerbal
+    resultController.addNumerical
 );
 
 resultRoutes.post(
