@@ -10,7 +10,6 @@ export type resultType = {
     generalKnowledge?: number,
     generalUpdatedAt?: number,
     hdi?: number,
-    hdiUpdatedAt?: number,
     country?: string,
     region?: string
 };

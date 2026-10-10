@@ -40,9 +40,6 @@ const resultSchema = new mongoose.Schema({
     hdi: {
         type: Number,
     },
-    hdiUpdatedAt: {
-        type: Number
-    },
     country: {
         type: String,
     },

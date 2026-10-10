@@ -13,7 +13,6 @@ const resultService = {
                 numericalUpdatedAt: currentTime,
                 abstractUpdatedAt: currentTime,
                 generalUpdatedAt: currentTime,
-                hdiUpdatedAt: currentTime
             });
             return {success: true, message: "Score added", data: entry};
         } catch (err) {
@@ -32,7 +31,6 @@ const resultService = {
                 numericalUpdatedAt: currentTime,
                 abstractUpdatedAt: currentTime,
                 generalUpdatedAt: currentTime,
-                hdiUpdatedAt: currentTime
             });
             return { success: true, message: "Score updated", data: entry };
         } catch (err) {
@@ -55,7 +53,7 @@ const resultService = {
 
     addHdi: async (userId: string, country: string, region: string, hdi: number) => {
         try {
-            const entry = await resultRepo.addHdi({userId, hdi, country, region, hdiUpdatedAt: Date.now()});
+            const entry = await resultRepo.addHdi({userId, hdi, country, region});
             return { success: true, message: "Hdi added", data: entry };
         } catch (err) {
             if (err instanceof Error) {
