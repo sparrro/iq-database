@@ -37,8 +37,7 @@ const resultController = {
                     (entry.verbalUpdatedAt && Date.now() - entry.verbalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
                     (entry.numericalUpdatedAt && Date.now() - entry.numericalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
                     (entry.abstractUpdatedAt && Date.now() - entry.abstractUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
-                    (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6) ||
-                    (entry.hdiUpdatedAt && Date.now() - entry.hdiUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6)
+                    (entry.generalUpdatedAt && Date.now() - entry.generalUpdatedAt < 1000 * 60 * 60 * 24 * 30 * 6)
                 ) return res.status(403).json({ success: false, message: "Must wait at least six months before retaking the test" });
                 const result = await resultService.updateFull(input);
                 return res.status(200).json(result);
@@ -92,16 +91,11 @@ const resultController = {
 
             const entry = await resultRepo.retrieve(input.userId);
             if (entry) {
-                if (entry.hdi && Date.now() - entry.hdiUpdatedAt! < 1000 * 60 * 60 * 24 * 30 * 6) {
-                    return res.status(403).json({ success: false, message: "You must wait at least six months to redo a test" });
-                } else {
-                    entry.country = input.country;
-                    entry.region = input.region;
-                    entry.hdi = input.hdi;
-                    entry.hdiUpdatedAt = Date.now();
-                    const result = await entry.save();  
-                    return res.status(200).json({ success: true, message: "Hdi updated", data: result });      
-                };
+                entry.country = input.country;
+                entry.region = input.region;
+                entry.hdi = input.hdi;
+                const result = await entry.save();  
+                return res.status(200).json({ success: true, message: "Hdi updated", data: result });
             };
 
             const result = await resultService.addHdi(input.userId, input.country, input.region, input.hdi);

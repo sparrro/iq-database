@@ -16,7 +16,7 @@ const resultRepo = {
         return await Result.findOneAndUpdate({ userId: data.userId }, data, { new: true });
     },
 
-    addHdi: async (data: {userId: string, country: string, region: string, hdi: number, hdiUpdatedAt: number}) => {
+    addHdi: async (data: {userId: string, country: string, region: string, hdi: number}) => {
         return await Result.create(data);
     },
 
