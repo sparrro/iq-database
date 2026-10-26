@@ -15,9 +15,9 @@ app.use(express.json());
 app.use("/results", resultRoutes);
 app.use("/data", dataMineRoutes);
 
-app.get("/", (req, res) => {
-    res.send("Api is working")
-})
+app.get("/ping", (req, res) => {
+    res.status(200).send({ success: true, message: "Api is online" });
+});
 
 const connectToDb = () => {
     if (!DB_URI) return;

@@ -18,7 +18,8 @@ const dataMineSchema = new mongoose.Schema({
                 type: Boolean
             },
             difficulty: {
-                type: Number
+                type: Number,
+                unique: true
             }
         }
     }],
@@ -34,7 +35,8 @@ const dataMineSchema = new mongoose.Schema({
                 type: Boolean
             },
             difficulty: {
-                type: Number
+                type: Number,
+                unique: true
             }
         }
     }],
@@ -50,7 +52,8 @@ const dataMineSchema = new mongoose.Schema({
                 type: Boolean
             },
             difficulty: {
-                type: Number
+                type: Number,
+                unique: true
             }
         }
     }],
@@ -66,7 +69,8 @@ const dataMineSchema = new mongoose.Schema({
                 type: Boolean
             },
             difficulty: {
-                type: Number
+                type: Number,
+                unique: true
             }
         }
     }]
