@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Result from "./model";
 import { resultType } from "../../types";
+import { averagesPipeline } from "./aggregationPipelines";
 
 const resultRepo = {
 
@@ -38,6 +39,10 @@ const resultRepo = {
 
     retrieve: async (userId: string) => {
         return await Result.findOne({userId: userId})
+    },
+
+    getAverages: async () => {
+        return await Result.aggregate(averagesPipeline).exec();
     }
 
 };

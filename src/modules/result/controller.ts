@@ -274,6 +274,21 @@ const resultController = {
             } else return res.status(500).json({success: false, message: "Server error"});
         };
 
+    },
+
+    getAverage: async (req: Request, res: Response) => {
+
+        try {
+            const result = await resultService.getAverage();
+            if (result.success) {
+                return res.status(200).json(result);
+            } else return res.status(404).json(result);
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(500).json({ success: false, message: err.message });
+            } else return res.status(500).json({ success: false, message: "Server error" });
+        };
+
     }
 };
 

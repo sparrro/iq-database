@@ -38,4 +38,9 @@ resultRoutes.get(
     resultController.retrieve
 );
 
+resultRoutes.get(
+    "/average",
+    resultController.getAverage
+);
+
 export default resultRoutes;

@@ -119,6 +119,19 @@ const resultService = {
             } else return {success: false, message: "Unknown error"}
         }
 
+    },
+
+    getAverage: async () => {
+        try {
+            const averages = await resultRepo.getAverages();
+            if (averages) {
+                return { success: true, message: "Averages retrieved", data: averages };
+            } else return { success: false, message: "Failed to retrieve averages" };
+        } catch (err) {
+            if (err instanceof Error) {
+                return { success: false, message: err.message };
+            } else return { success: false, message: "Unknown error" };
+        };
     }
 
 };
